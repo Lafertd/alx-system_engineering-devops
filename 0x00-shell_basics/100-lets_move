@@ -1,2 +1,2 @@
 #!/bin/bash
-mv rc/*[A-Z]* /tmp/u
+mv src/*[A-Z]* /tmp/u

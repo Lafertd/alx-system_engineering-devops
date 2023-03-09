@@ -1,0 +1,2 @@
+#!/bin/bash
+mv rc/*[A-Z]* /tmp/u

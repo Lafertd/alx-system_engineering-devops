@@ -1,1 +1,1 @@
-Shell scripting for the first time
+Shell permissions

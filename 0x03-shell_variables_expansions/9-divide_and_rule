@@ -1,2 +1,2 @@
 #!/bin/bash
-printf $(($POWER / $DIVIDE))
+printf $((BREATH**$LOVE))\n

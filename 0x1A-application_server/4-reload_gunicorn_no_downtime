@@ -1,5 +1,14 @@
-#!/usr/bin/env bash
-# Gracefully reloads Gunicorn.
+#!/bin/bash
 
-sudo kill -HUP "$(ps -C gunicorn ch -o pid | head -n 1)"
+# Get the master PID of Gunicorn
+master_pid=$(ps aux | grep '[g]unicorn' | grep 'master' | awk '{print $2}')
 
+if [ -z "$master_pid" ]; then
+    echo "Gunicorn is not running."
+    exit 1
+fi
+
+# Gracefully reload Gunicorn
+kill -HUP "$master_pid"
+
+echo "Gunicorn has been reloaded gracefully."

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# restart gracefully gunicorn
-if pgrep gunicorn | xargs kill -HUP; then
+# Gracefully restart Gunicorn by sending a HUP signal to the master process
+
+MASTER_PID=$(ps -C gunicorn -o pid= | head -n 1)
+
+if kill -HUP "$MASTER_PID"; then
     echo "OK"
 else
     echo "NOk"

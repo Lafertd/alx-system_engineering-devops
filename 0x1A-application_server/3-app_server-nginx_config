@@ -10,21 +10,33 @@ server {
 
     server_name 100.26.229.180;
 >>>>>>> 03098382b46c114d110e4a213787b8d673ee36ac
-
-    location /airbnb-dynamic/number_odd_or_even/ {
-        proxy_pass http://127.0.0.1:5001;  # Pass to the Gunicorn instance on port 5001
+location ~ /airbnb-dynamic/number_odd_or_even/(d+)$ {
+        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;  # Pass to the Gunicorn instance on port 5001
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-    location / {
-        proxy_pass http://127.0.0.1:5000;  # Pass to the Gunicorn instance on port 5000
+    location = / {
+        proxy_pass http://127.0.0.1:5000/;  # Pass to the Gunicorn instance on port 5000
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location = /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;  # Forward requests to Gunicorn
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+     root /var/www/html;
+     internal;
     }
 }
-

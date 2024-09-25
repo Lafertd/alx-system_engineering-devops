@@ -1,6 +1,15 @@
 server {
+<<<<<<< HEAD
     listen 80;
     server_name 100.26.229.180;  # Replace with your server's public IP
+=======
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By 381966-web-01;
+    
+
+    server_name 100.26.229.180;
+>>>>>>> 03098382b46c114d110e4a213787b8d673ee36ac
 
     location /airbnb-dynamic/number_odd_or_even/ {
         proxy_pass http://127.0.0.1:5001;  # Pass to the Gunicorn instance on port 5001

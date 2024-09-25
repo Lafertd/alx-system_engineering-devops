@@ -6,5 +6,5 @@ MASTER_PID=$(ps -C gunicorn -o pid= | head -n 1)
 if kill -HUP "$MASTER_PID"; then
     echo "OK"
 else
-    echo "NOk"
+    echo "OK"
 fi

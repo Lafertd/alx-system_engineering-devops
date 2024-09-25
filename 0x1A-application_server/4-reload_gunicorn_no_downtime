@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Gracefully restart Gunicorn by sending a HUP signal to the master process
+#reload Gunicorn
 
-MASTER_PID=$(ps -C gunicorn -o pid= | head -n 1)
-kill -HUP "$MASTER_PID";
+pgrep gunicorn | xargs kill -HUP

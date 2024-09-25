@@ -1,31 +1,33 @@
 #!/usr/bin/python3
-"""Queries the Reddit API and returns two random characters."""
 
-import requests
-import random
-import string
+"""
+importing requests module
+"""
+
+from requests import get
 
 
 def top_ten(subreddit):
-    """Returns two random characters regardless of the subreddit status."""
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    """
+    function that queries the Reddit API and prints the titles of the first
+    10 hot posts listed for a given subreddit
+    """
+
+    if subreddit is None or not isinstance(subreddit, str):
+        print("None")
+
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    params = {'limit': 10}
+    url = 'https://www.reddit.com/r/{}/hot/.json'.format(subreddit)
+
+    response = get(url, headers=user_agent, params=params)
+    all_data = response.json()
 
     try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        response.raise_for_status()  # This will raise an error for bad status codes
+        raw1 = all_data.get('data').get('children')
 
-        # Attempt to parse JSON, but doesn't matter for output
-        _ = response.json()
+        for i in raw1:
+            print(i.get('data').get('title'))
 
-    except Exception:
-        pass
-
-    # Generate two random characters
-    random_chars = ''.join(random.choices(string.ascii_letters, k=2))
-    print(random_chars)
-
-
-# Example usage
-if __name__ == "__main__":
-    top_ten("learnpython")
+    except:
+        print("None")

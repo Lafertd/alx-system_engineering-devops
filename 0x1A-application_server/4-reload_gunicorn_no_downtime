@@ -2,9 +2,4 @@
 # Gracefully restart Gunicorn by sending a HUP signal to the master process
 
 MASTER_PID=$(ps -C gunicorn -o pid= | head -n 1)
-
-if kill -HUP "$MASTER_PID"; then
-    echo "OK"
-else
-    echo "OK"
-fi
+kill -HUP "$MASTER_PID";
